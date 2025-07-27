@@ -53,6 +53,9 @@ int main(){
     enqueue(40);
     enqueue(50);
     dequeue();
+    dequeue();
     enqueue(60);
+    enqueue(70);
     display();
+
 }
