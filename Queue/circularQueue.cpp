@@ -6,7 +6,7 @@ int rear = -1;
 int queue[size];
 
 void enqueue(int num){
-    if(front==0 && rear == size-1  || (rear+1)%size==front ){
+    if((rear+1)%size==front ){
         cout<<"queue is full can not insert"<<endl;
     }
     else if(front==-1 && rear ==-1){
