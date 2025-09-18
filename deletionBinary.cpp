@@ -13,18 +13,18 @@ struct Node{
     }
 };
 
-void inorder(Node* root){
-    if(root){
-        cout<<root->data<<" ";
-        inorder(root->left);
-        inorder(root->right);
-    }
-}
 void preorder(Node* root){
     if(root){
-        preorder(root->left);
         cout<<root->data<<" ";
+        preorder(root->left);
         preorder(root->right);
+    }
+}
+void inorder(Node* root){
+    if(root){
+        inorder(root->left);
+        cout<<root->data<<" ";
+        inorder(root->right);
     }
 }
 void postorder(Node* root){
@@ -52,7 +52,7 @@ Node *insert(Node*root, int val){
 
 
 Node *rightMin(Node*root){
-    while(root && root->data){
+    while(root && root->left){
         root = root->left;
     }
     return root;
@@ -92,6 +92,7 @@ Node* deleteNode(Node* root, int val){
             root->right = deleteNode(root->right, temp->data);
         }
     }
+    return root;
 }
 int main(){
     int n; 
@@ -122,7 +123,7 @@ int main(){
     postorder(root);
     cout<<endl;
 
-    deleteNode(root, 25);
+    root = deleteNode(root, 20);
 
     cout<<endl;
     cout<<"Inorder after deleteion : ";
