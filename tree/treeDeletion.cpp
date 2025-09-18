@@ -13,18 +13,18 @@ struct Node{
     }
 };
 
-void inorder(Node* root){
-    if(root){
-        cout<<root->data<<" ";
-        inorder(root->left);
-        inorder(root->right);
-    }
-}
 void preorder(Node* root){
     if(root){
-        preorder(root->left);
         cout<<root->data<<" ";
+        preorder(root->left);
         preorder(root->right);
+    }
+}
+void inorder(Node* root){
+    if(root){
+        inorder(root->left);
+        cout<<root->data<<" ";
+        inorder(root->right);
     }
 }
 void postorder(Node* root){
@@ -50,47 +50,49 @@ Node *insert(Node*root, int val){
     return root;
 }
 
-Node*findMin(Node*root){
-    while(root && root->data ){
-        root= root->left;
+
+Node *rightMin(Node*root){
+    while(root && root->left){
+        root = root->left;
     }
     return root;
 }
 
-Node* deleteNode(Node*root , int key){
-    if(root==nullptr){
+Node* deleteNode(Node* root, int val){
+    if(root == nullptr){
         return root;
     }
-    else if(key < root->data){
-        root ->left = deleteNode(root->left, key);
+    else if(val < root->data){
+        root->left = deleteNode(root->left, val);
     }
-    else if(key > root -> data){
-        root->right = deleteNode(root->right, key);
+    else if(val > root->data){
+        root-> right = deleteNode(root->right, val);
     }
-    else{
-        // case 1 --> delete last child
-        if(root->left ==nullptr && root->right ==nullptr ){
+    else {
+        // case 1--> delete leaf node
+        if(root->left==nullptr && root->right== nullptr){
             delete root;
             return nullptr;
         }
-        // case 2 -->delete node which have one child
-        else if(root->left==nullptr){
-            Node*temp  = root->right;
+        // case 2 --> delete node that have one child
+        else if(root->right == nullptr){
+            Node*temp = root->left;
             delete root;
              return temp;
         }
-        else if(root->right ==nullptr){
-            Node*temp = root->left;
+        else if(root->left == nullptr){
+            Node*temp = root->right;
             delete root;
             return temp;
         }
-        // case 3 two children
+        // case 3 --> delete node with both child
         else{
-            Node*temp  = findMin(root->right);
+            Node*temp = rightMin(root->right);
             root->data = temp->data;
             root->right = deleteNode(root->right, temp->data);
         }
     }
+    return root;
 }
 int main(){
     int n; 
@@ -121,6 +123,11 @@ int main(){
     postorder(root);
     cout<<endl;
 
+    root = deleteNode(root, 20);
 
-    deleteNode(root, 60);
+    cout<<endl;
+    cout<<"Inorder after deleteion : ";
+    inorder(root);
+    cout<<endl;
+
 }
