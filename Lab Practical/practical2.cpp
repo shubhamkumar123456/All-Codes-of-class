@@ -1,3 +1,4 @@
+// infix to postfix conversion code
 #include<iostream>
 #include<stack>
 #include<cctype>
@@ -59,6 +60,4 @@ int main(){
  
  string postfix = infixToPostFix(infix);
  cout<<postfix;
-
-  
 }
